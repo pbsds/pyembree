@@ -29,9 +29,9 @@ cdef void error_printer(const rtc.RTCError code, const char *_str):
 cdef class EmbreeScene:
     def __init__(self, rtc.EmbreeDevice device=None):
         if device is None:
-            # We store the embree device inside EmbreeScene to avoid premature deletion
-            self.device = rtc.EmbreeDevice()
-            device = self.device
+            device = rtc.EmbreeDevice()
+        # We store the embree device inside EmbreeScene to avoid premature deletion
+        self.device = device
         rtc.rtcDeviceSetErrorFunction(device.device, error_printer)
         self.scene_i = rtcDeviceNewScene(device.device, RTC_SCENE_STATIC, RTC_INTERSECT1)
         self.is_committed = 0
